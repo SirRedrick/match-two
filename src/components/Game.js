@@ -29,15 +29,23 @@ function Game() {
 	const [cards, setCards] = useState(initCards());
 
 	return (
-		<div>
+		<Grid>
 			{cards.map((card, index) => (
 				<Card key={index} card={card} />
 			))}
-		</div>
+		</Grid>
 	);
 }
 
-const Grid = styled.div;
+const Grid = styled.div`
+	display: grid;
+	grid-template-columns: repeat(4, 130px);
+	grid-template-rows: repeat(3, 130px);
+	gap: 25px;
+
+	width: max-content;
+	margin: 40px auto 0 auto;
+`;
 
 function initCards() {
 	const animalsCopy = [...animals];
