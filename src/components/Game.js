@@ -1,39 +1,24 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Card from './Card';
-
-const animals = [
-	'🐱',
-	'🐵',
-	'🐶',
-	'🦊',
-	'🦁',
-	'🐯',
-	'🐮',
-	'🐷',
-	'🐭',
-	'🐹',
-	'🐰',
-	'🐻',
-	'🐨',
-	'🐼',
-	'🐸',
-	'🐲',
-	'🐙',
-	'🦋',
-	'🦀',
-	'🦑',
-];
+import ResetButton from './ResetButton';
+import animals from '../data/animals';
 
 function Game() {
 	const [cards, setCards] = useState(initCards());
+	function reset() {
+		setCards(initCards);
+	}
 
 	return (
-		<Grid>
-			{cards.map((card, index) => (
-				<Card key={index} card={card} />
-			))}
-		</Grid>
+		<Container>
+			<Grid>
+				{cards.map((card, index) => (
+					<Card key={index} card={card} />
+				))}
+			</Grid>
+			<ResetButton onClick={reset} />
+		</Container>
 	);
 }
 
@@ -45,6 +30,10 @@ const Grid = styled.div`
 
 	width: max-content;
 	margin: 40px auto 0 auto;
+`;
+
+const Container = styled.div`
+	text-align: center;
 `;
 
 function initCards() {

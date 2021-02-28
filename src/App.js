@@ -1,6 +1,5 @@
 import { Fragment } from 'react';
 import Game from './components/Game';
-import ResetButton from './ResetButton';
 import styled from 'styled-components';
 import './App.css';
 
@@ -9,7 +8,6 @@ function App() {
 		<Fragment>
 			<Heading>Match Two!</Heading>
 			<Game />
-			<ResetButton />
 		</Fragment>
 	);
 }
