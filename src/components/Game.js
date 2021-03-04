@@ -6,47 +6,50 @@ import animals from '../data/animals';
 
 function Game() {
 	const [cards, setCards] = useState(initCards());
+
+	function initCards() {
+		const faces = [...animals];
+		const cards = [];
+
+		for (let i = 0; i < 8; i++) {
+			const index = Math.floor(getRandomArbitrary(0, faces.length));
+			const face = faces.splice(index, 1)[0];
+			const card = {
+				face,
+				isChosen: false,
+			};
+
+			cards.push(card, card);
+			faces.splice(index, 1);
+		}
+
+		shuffle(cards);
+
+		return cards;
+	}
+
 	function reset() {
 		setCards(initCards);
+	}
+
+	function handleClick(index) {
+		const tempCards = [...cards];
+		const card = { ...cards[index] };
+		card.isChosen = !card.isChosen;
+		tempCards[index] = card;
+		setCards(tempCards);
 	}
 
 	return (
 		<Container>
 			<Grid>
-				{cards.map((card, index) => (
-					<Card key={index} card={card} />
+				{cards.map(({ face, isChosen }, index) => (
+					<Card key={index} face={face} isChosen={isChosen} onClick={() => handleClick(index)} />
 				))}
 			</Grid>
 			<ResetButton onClick={reset} />
 		</Container>
 	);
-}
-
-const Grid = styled.div`
-	display: grid;
-	grid-template-columns: repeat(4, 130px);
-	grid-template-rows: repeat(3, 130px);
-	gap: 25px;
-
-	width: max-content;
-	margin: 40px auto 0 auto;
-`;
-
-const Container = styled.div`
-	text-align: center;
-`;
-
-function initCards() {
-	const animalsCopy = [...animals];
-	const cards = [];
-	for (let i = 0; i < 8; i++) {
-		const index = Math.floor(getRandomArbitrary(0, animalsCopy.length));
-		const animal = animalsCopy.splice(index, 1)[0];
-		cards.push(animal, animal);
-		animalsCopy.splice(index, 1);
-	}
-	shuffle(cards);
-	return cards;
 }
 
 function getRandomArbitrary(min, max) {
@@ -68,3 +71,19 @@ function shuffle(array) {
 }
 
 export default Game;
+
+// Styles
+
+const Grid = styled.div`
+	display: grid;
+	grid-template-columns: repeat(4, 130px);
+	grid-template-rows: repeat(3, 130px);
+	gap: 25px;
+
+	width: max-content;
+	margin: 40px auto 0 auto;
+`;
+
+const Container = styled.div`
+	text-align: center;
+`;

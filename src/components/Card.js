@@ -1,7 +1,11 @@
 import React from 'react';
 
-function Card({ card }) {
-	return <div className="card">{card}</div>;
+function Card({ face, isChosen, onClick }) {
+	return (
+		<div className="card" style={isChosen ? { background: 'green' } : {}} onClick={onClick}>
+			{face}
+		</div>
+	);
 }
 
 export default Card;
