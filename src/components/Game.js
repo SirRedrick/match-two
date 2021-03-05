@@ -33,6 +33,7 @@ function Game() {
 	}
 
 	function handleClick(index) {
+		console.log(index);
 		const tempCards = [...cards];
 		const card = { ...cards[index] };
 		card.isChosen = !card.isChosen;
@@ -74,6 +75,10 @@ export default Game;
 
 // Styles
 
+const Container = styled.div`
+	text-align: center;
+`;
+
 const Grid = styled.div`
 	display: grid;
 	grid-template-columns: repeat(4, 130px);
@@ -82,8 +87,4 @@ const Grid = styled.div`
 
 	width: max-content;
 	margin: 40px auto 0 auto;
-`;
-
-const Container = styled.div`
-	text-align: center;
 `;
