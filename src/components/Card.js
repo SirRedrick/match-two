@@ -1,20 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function Card({ face, isChosen, onClick }) {
+export default function Card({ face, isChosen, isMatched, onClick }) {
 	return (
 		<Container onClick={onClick}>
 			<InnerCard isChosen={isChosen}>
 				<FrontWrapper>
-					<CardFront>{face}</CardFront>
+					<CardFront isMatched={isMatched}>{face}</CardFront>
 				</FrontWrapper>
 				<CardBack />
 			</InnerCard>
 		</Container>
 	);
 }
-
-export default Card;
 
 // Styles
 
@@ -35,7 +33,7 @@ const InnerCard = styled.div`
 	position: relative;
 	transition: transform 0.8s;
 	transform-style: preserve-3d;
-	transform: ${(props) => (props.isChosen ? 'rotateY(180deg)' : 'rotateY(0deg)')};
+	transform: ${({ isChosen }) => (isChosen ? 'rotateY(180deg)' : 'rotateY(0deg)')};
 `;
 
 const Face = styled.div`
@@ -56,7 +54,10 @@ const CardFront = styled.div`
 	height: 100%;
 	width: 100%;
 	border-radius: 7px;
-	background-color: #fff;
+	background-color: ${({ isMatched }) => {
+		if (isMatched === null) return '#fff';
+		return isMatched ? '#0f0' : '#f00';
+	}};
 	display: flex;
 	justify-content: center;
 	align-items: center;

@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Card from './Card';
 import ResetButton from './ResetButton';
+import Timer from './Timer';
 import animals from '../data/animals';
 
-function Game() {
-	const [cards, setCards] = useState(initCards());
+export default function Game() {
+	const [deck, setDeck] = useState({
+		pair: [],
+		cards: initCards(),
+		toFlip: false,
+	});
 
 	function initCards() {
 		const faces = [...animals];
@@ -17,6 +22,7 @@ function Game() {
 			const card = {
 				face,
 				isChosen: false,
+				isMatched: null,
 			};
 
 			cards.push(card, card);
@@ -24,28 +30,68 @@ function Game() {
 		}
 
 		shuffle(cards);
-
 		return cards;
 	}
 
-	function reset() {
-		setCards(initCards);
-	}
-
 	function handleClick(index) {
-		console.log(index);
-		const tempCards = [...cards];
-		const card = { ...cards[index] };
+		const tempCards = [...deck.cards];
+		const card = { ...deck.cards[index] };
 		card.isChosen = !card.isChosen;
 		tempCards[index] = card;
-		setCards(tempCards);
+
+		if (deck.toFlip) {
+			const [first, second] = deck.pair;
+			tempCards[first].isChosen = !tempCards[first].isChosen;
+			tempCards[second].isChosen = !tempCards[second].isChosen;
+			tempCards[first].isMatched = null;
+			tempCards[second].isMatched = null;
+
+			const tempPair = [];
+			tempPair.push(index);
+
+			setDeck({
+				pair: tempPair,
+				cards: tempCards,
+				toFlip: false,
+			});
+		} else {
+			const tempPair = [...deck.pair];
+			tempPair.push(index);
+			if (tempPair.length > 1) {
+				const [first, second] = tempPair;
+				if (tempCards[first].face !== tempCards[second].face) {
+					tempCards[first].isMatched = false;
+					tempCards[second].isMatched = false;
+
+					setDeck({
+						pair: tempPair,
+						cards: tempCards,
+						toFlip: true,
+					});
+					return;
+				}
+			}
+
+			setDeck({
+				pair: tempPair,
+				cards: tempCards,
+				toFlip: deck.toFlip,
+			});
+		}
+	}
+
+	function reset() {
+		setDeck({
+			pair: [],
+			cards: initCards(),
+		});
 	}
 
 	return (
 		<Container>
 			<Grid>
-				{cards.map(({ face, isChosen }, index) => (
-					<Card key={index} face={face} isChosen={isChosen} onClick={() => handleClick(index)} />
+				{deck.cards.map(({ face, isChosen, isMatched }, index) => (
+					<Card key={index} face={face} isChosen={isChosen} isMatched={isMatched} onClick={() => handleClick(index)} />
 				))}
 			</Grid>
 			<ResetButton onClick={reset} />
@@ -70,8 +116,6 @@ function shuffle(array) {
 		array[index] = temp;
 	}
 }
-
-export default Game;
 
 // Styles
 
