@@ -14,26 +14,25 @@ export default function Game() {
 
 	function initCards() {
 		const faces = [...animals];
-		const cards = [];
 
-		for (let i = 0; i < 8; i++) {
-			const index = Math.floor(getRandomArbitrary(0, faces.length));
-			const face = faces.splice(index, 1)[0];
+		shuffle(faces);
+		const cards = faces.splice(0, 8).flatMap((face) => {
 			const card = {
 				face,
 				isChosen: false,
 				isMatched: null,
 			};
 
-			cards.push(card, card);
-			faces.splice(index, 1);
-		}
+			return [card, card];
+		});
 
 		shuffle(cards);
 		return cards;
 	}
 
 	function handleClick(index) {
+		if (deck.cards[index].isMatched !== null || deck.pair[0] === index) return;
+
 		const tempCards = [...deck.cards];
 		const card = { ...deck.cards[index] };
 		card.isChosen = !card.isChosen;
@@ -69,6 +68,16 @@ export default function Game() {
 						toFlip: true,
 					});
 					return;
+				} else {
+					tempCards[first].isMatched = true;
+					tempCards[second].isMatched = true;
+
+					setDeck({
+						pair: [],
+						cards: tempCards,
+						toFlip: false,
+					});
+					return;
 				}
 			}
 
@@ -84,6 +93,7 @@ export default function Game() {
 		setDeck({
 			pair: [],
 			cards: initCards(),
+			toFlip: false,
 		});
 	}
 
