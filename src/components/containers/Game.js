@@ -14,6 +14,7 @@ export default function Game() {
 		cards: initCards(),
 		toFlip: false,
 	});
+	const [count, setCount] = useState(8);
 
 	function initCards() {
 		const faces = [...animals];
@@ -80,6 +81,7 @@ export default function Game() {
 						cards: tempCards,
 						toFlip: false,
 					});
+					setCount(count - 1);
 					return;
 				}
 			}
