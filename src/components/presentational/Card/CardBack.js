@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Face from './Face';
+import Face from './CardFace';
 
 export default styled(Face)`
 	border: 5px solid #fff;

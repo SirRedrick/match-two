@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import Card from './Card';
 import ResetButton from './ResetButton';
-import Timer from './Timer';
 
-import Container from '../styled/Container';
-import Grid from '../styled/Grid';
+import Container from '../presentational/Container';
+import Grid from '../presentational/Grid';
 
-import shuffle from '../modules/shuffle';
-import animals from '../data/animals';
+import shuffle from '../../utils/shuffle';
+import animals from '../../data/animals';
 
 export default function Game() {
 	const [deck, setDeck] = useState({

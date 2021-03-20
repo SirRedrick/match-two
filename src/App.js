@@ -1,9 +1,9 @@
-import { Fragment } from 'react';
-import Game from './components/Game';
-import Heading from './styled/Heading';
+import React, { Fragment } from 'react';
+import Game from './components/containers/Game';
+import Heading from './components/presentational/Heading';
 import './App.css';
 
-function App() {
+export default function App() {
 	return (
 		<Fragment>
 			<Heading>Match Two!</Heading>
@@ -11,5 +11,3 @@ function App() {
 		</Fragment>
 	);
 }
-
-export default App;
