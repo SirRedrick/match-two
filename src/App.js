@@ -5,11 +5,13 @@ import Modal from './components/containers/Modal';
 import './App.css';
 
 export default function App() {
+	const win = false;
+
 	return (
 		<Fragment>
 			<Heading>Match Two!</Heading>
 			<Game />
-			<Modal />
+			{win ? <Modal /> : null}
 		</Fragment>
 	);
 }
