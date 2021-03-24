@@ -1,5 +1,5 @@
 import React from 'react';
 
-export default function ResetButton({ onClick }) {
-	return <button onClick={onClick}>Reset</button>;
+export default function TryAgainButton({ onClick }) {
+	return <button onClick={onClick}>Try Again</button>;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ResetButton from './ResetButton';
+import TryAgainButton from './ResetButton';
 
 import Heading from '../presentational/Heading';
 import ModalWrapper from '../presentational/Modal/ModalWrapper';
@@ -11,7 +11,7 @@ export default function Modal({ onClick }) {
 		<ModalWrapper>
 			<ModalContainer>
 				<Heading>You Win!</Heading>
-				<ResetButton onClick={onClick} />
+				<TryAgainButton onClick={onClick} />
 			</ModalContainer>
 		</ModalWrapper>
 	);
