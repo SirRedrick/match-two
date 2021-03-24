@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
 import Card from './Card';
-import ResetButton from './ResetButton';
+import Modal from './Modal';
 
 import Container from '../presentational/Container';
+import Heading from '../presentational/Heading';
 import Grid from '../presentational/Grid';
 
 import shuffle from '../../utils/shuffle';
@@ -15,6 +17,12 @@ export default function Game() {
 		toFlip: false,
 	});
 	const [count, setCount] = useState(8);
+	const [win, setWin] = useState(false);
+
+	useEffect(() => {
+		if (count) return;
+		setWin(true);
+	}, [count]);
 
 	function initCards() {
 		const faces = [...animals];
@@ -100,16 +108,19 @@ export default function Game() {
 			cards: initCards(),
 			toFlip: false,
 		});
+		setCount(8);
+		setWin(false);
 	}
 
 	return (
 		<Container>
+			<Heading>Match Two!</Heading>
 			<Grid>
 				{deck.cards.map(({ face, isChosen, isMatched }, index) => (
 					<Card key={index} face={face} isChosen={isChosen} isMatched={isMatched} onClick={() => handleClick(index)} />
 				))}
 			</Grid>
-			<ResetButton onClick={reset} />
+			{win ? <Modal onClick={() => reset()} /> : null}
 		</Container>
 	);
 }
