@@ -12,7 +12,7 @@ export default styled.div`
 	}
 
 	@media (min-width: 768px) and (orientation: landscape) {
-		font-size: 3rem;
+		font-size: 4rem;
 	}
 
 	@media (min-width: 1024px) {
