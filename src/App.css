@@ -10,3 +10,8 @@
 	font-family: Arial, Helvetica, sans-serif;
 	color: #434344;
 }
+
+body {
+	margin: 0;
+	padding: 0;
+}
