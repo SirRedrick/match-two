@@ -1,7 +1,7 @@
 import React from 'react';
 
 function Timer() {
-	return <div></div>;
+  return <div>{/* TODO finish timer */}</div>;
 }
 
 export default Timer;
